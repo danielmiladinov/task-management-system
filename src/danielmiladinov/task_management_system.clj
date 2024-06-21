@@ -1,7 +1,15 @@
 (ns danielmiladinov.task-management-system
   (:gen-class))
 
-(def tasks (atom []))
+(def ^:private tasks (atom []))
+
+(defn set-tasks
+  [new-tasks]
+  (reset! tasks new-tasks))
+
+(defn add-task
+  [new-task]
+  (swap! tasks conj new-task))
 
 (defn by-priority-and-status
   "Return a collection of the tasks in the system in descending priority and status order"

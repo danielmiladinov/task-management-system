@@ -19,3 +19,14 @@ Feature: Task Management System
      {:title "Team meeting"  :description "Monthly team sync"          :priority :medium  :status :completed}
      {:title "Plan project"  :description "Outline new project"        :priority :low     :status :in-progress}]
     """
+
+  Scenario: Adding more tasks
+    When I add a new task with title "Read book", description "Read the new book I bought", with priority :low
+    Then the task "Read book" should appear in my list of tasks, with a status of :pending
+    And the total number of tasks should be 5
+    When I add a new task with title "Publish blog post", description "Clojure and burpless for great success!", with priority :high"
+    Then the task "Publish blog post" should appear in my list of tasks, with a status of :pending
+    And the total number of tasks should be 6
+    When I add a new task with title "Pay bills", description "Cell, electric, and internet", with priority :medium
+    Then the task "Pay bills" should appear in my list of tasks, with a status of :pending
+    And the total number of tasks should be 7
