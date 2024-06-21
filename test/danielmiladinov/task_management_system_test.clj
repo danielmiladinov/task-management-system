@@ -61,7 +61,21 @@
    (step :When "I mark the task {string} as {keyword}"
          (fn [state ^String title ^Keyword status]
            (tms/set-task-status title status)
-           state))])
+           state))
+
+   (step :When "I edit the task {string} to change the priority to {keyword}"
+         (fn [state ^String title ^Keyword priority]
+           (tms/set-task-priority title priority)
+           state))
+
+   (step :Then "the task {string} should have the priority {keyword}"
+         (fn [state ^String title ^Keyword priority]
+           (let [matching-task (->> (tms/by-priority-and-status)
+                                    (filter (every-pred (comp (hash-set title) :title)
+                                                        (comp (hash-set priority) :priority)))
+                                    first)]
+             (assert (some? matching-task) (format "Did not find task with title %s and priority %s" title priority))
+             state)))])
 
 (deftest task-management-system-feature
   (is (zero? (run-cucumber "test-resources/task-management-system.feature" steps))))

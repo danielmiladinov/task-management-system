@@ -38,3 +38,7 @@ Feature: Task Management System
   Scenario: Completing a task
     When I mark the task "Finish report" as :completed
     Then the task "Finish report" should appear in my list of tasks, with a status of :completed
+
+  Scenario: Changing priority
+    When I edit the task "Plan project" to change the priority to :high
+    Then the task "Plan project" should have the priority :high
