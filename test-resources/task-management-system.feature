@@ -42,3 +42,8 @@ Feature: Task Management System
   Scenario: Changing priority
     When I edit the task "Plan project" to change the priority to :high
     Then the task "Plan project" should have the priority :high
+
+  Scenario: Deleting a task
+    When I delete the task "Team meeting"
+    Then the task "Team meeting" should be removed from my list of tasks
+    And the total number of tasks should be 3

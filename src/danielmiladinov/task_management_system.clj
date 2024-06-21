@@ -25,6 +25,10 @@
                                       (= title task-title)
                                       (assoc :priority new-priority))))))
 
+(defn delete-task
+  [task-title]
+  (swap! tasks (partial remove (comp (hash-set task-title) :title))))
+
 (defn by-priority-and-status
   "Return a collection of the tasks in the system in descending priority and status order"
   []

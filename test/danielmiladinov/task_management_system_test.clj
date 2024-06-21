@@ -75,6 +75,19 @@
                                                         (comp (hash-set priority) :priority)))
                                     first)]
              (assert (some? matching-task) (format "Did not find task with title %s and priority %s" title priority))
+             state)))
+
+   (step :When "I delete the task {string}"
+         (fn [state ^String title]
+           (tms/delete-task title)
+           state))
+
+   (step :Then "the task {string} should be removed from my list of tasks"
+         (fn [state ^String title]
+           (let [no-such-task (->> (tms/by-priority-and-status)
+                                   (filter (comp (hash-set title) :title))
+                                   first)]
+             (assert (nil? no-such-task) (format "Expected to not find a task with title %s, but did" title))
              state)))])
 
 (deftest task-management-system-feature
