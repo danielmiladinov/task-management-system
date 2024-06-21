@@ -56,6 +56,11 @@
                              (if (= 1 expected-number-of-tasks) "" "s")
                              actual-number-of-tasks
                              (if (= 1 actual-number-of-tasks) "" "s"))))
+           state))
+
+   (step :When "I mark the task {string} as {keyword}"
+         (fn [state ^String title ^Keyword status]
+           (tms/set-task-status title status)
            state))])
 
 (deftest task-management-system-feature

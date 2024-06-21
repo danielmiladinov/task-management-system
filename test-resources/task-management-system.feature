@@ -30,3 +30,11 @@ Feature: Task Management System
     When I add a new task with title "Pay bills", description "Cell, electric, and internet", with priority :medium
     Then the task "Pay bills" should appear in my list of tasks, with a status of :pending
     And the total number of tasks should be 7
+
+  Scenario: Starting a task
+    When I mark the task "Buy groceries" as :in-progress
+    Then the task "Buy groceries" should appear in my list of tasks, with a status of :in-progress
+
+  Scenario: Completing a task
+    When I mark the task "Finish report" as :completed
+    Then the task "Finish report" should appear in my list of tasks, with a status of :completed

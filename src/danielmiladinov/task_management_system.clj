@@ -11,6 +11,13 @@
   [new-task]
   (swap! tasks conj new-task))
 
+(defn set-task-status
+  [task-title new-status]
+  (swap! tasks (partial map (fn [{:keys [title] :as task}]
+                              (cond-> task
+                                      (= title task-title)
+                                      (assoc :status new-status))))))
+
 (defn by-priority-and-status
   "Return a collection of the tasks in the system in descending priority and status order"
   []
